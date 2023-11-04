@@ -25,12 +25,11 @@ function SignIn({ setToken }: { setToken: any }) {
     e.preventDefault();
     try {
       const token = await loginUser(username, password);
-      setToken(token);
+      setToken(token.access_token);
     } catch (error) {
       toast.error("Error while logging in"); // Set the error message
     }
   };
-
   return (
     <section>
       <div className="flex items-center justify-center p-4">
