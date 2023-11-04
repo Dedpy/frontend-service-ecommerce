@@ -6,6 +6,7 @@ import Panier from "./pages/panier/Panier";
 import Payment from "./pages/payment/payment";
 import SignIn from "./pages/auth/signin/signin";
 import SignUp from "./pages/auth/signup/signup";
+import Home from "./pages/Home";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/produits" element={<Produits />} />

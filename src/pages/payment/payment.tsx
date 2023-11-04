@@ -2,8 +2,8 @@ import React from "react";
 
 function Payment() {
   return (
-    <div className="bg-gray-100 h-screen">
-      <div className="bg-white p-6  md:mx-auto">
+    <div className=" h-screen">
+      <div className=" p-6  md:mx-auto">
         <svg
           viewBox="0 0 24 24"
           className="text-green-600 w-16 h-16 mx-auto my-6"
