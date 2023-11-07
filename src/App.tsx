@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Navbar } from "./components/navbar";
 import Produits from "./pages/produits/Produits";
@@ -10,14 +10,13 @@ import Home from "./pages/Home";
 import { Toaster } from "react-hot-toast";
 
 function App() {
-  const [token, setToken] = useState();
   return (
     <main className="min-h-screen text-center bg-background text-primary ">
       <Router>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/signin" element={<SignIn setToken={setToken} />} />
+          <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/produits" element={<Produits />} />
           <Route path="/panier" element={<Panier />} />

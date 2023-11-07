@@ -1,17 +1,20 @@
 import React from "react";
+import { Product } from "../../types/produits";
 
-function Produit() {
+function Produit({ produit }: { produit: Product }) {
   return (
     <div className="flex flex-col p-4 text-lg font-semibold shadow-md border rounded-sm">
       <div className="flex flex-col md:flex-row gap-3 justify-between">
         <div className="flex flex-col  items-start gap-2">
-          <p className="text-lg text-gray-800 font-semibold">Name</p>
+          <p className="text-lg text-gray-800 font-semibold">{produit.name}</p>
           <p className="text-xs text-gray-600 font-semibold">
-            Inventory: <span className="font-normal">42</span>
+            Inventory: <span className="font-normal">{produit.inventory}</span>
           </p>
         </div>
         <div className="self-center text-center">
-          <p className="text-gray-800 font-normal text-xl">$ Prices</p>
+          <p className="text-gray-800 font-normal text-xl">
+            {produit.price} Prices
+          </p>
         </div>
         <div className="flex flex-row self-center gap-1">
           <button className="w-5 h-5 self-center rounded-full border border-gray-300">

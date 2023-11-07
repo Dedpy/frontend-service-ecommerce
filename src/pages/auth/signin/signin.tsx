@@ -1,6 +1,7 @@
-import React, { FormEventHandler, useState } from "react";
+import React, { FormEventHandler, useContext, useState } from "react";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useNavigation } from "react-router-dom";
+import UserContext from "../../../context/userContext";
 
 async function loginUser(username: string, password: string) {
   return fetch("http://localhost:3001/auth/sign-in", {
@@ -17,15 +18,20 @@ async function loginUser(username: string, password: string) {
   });
 }
 
-function SignIn({ setToken }: { setToken: any }) {
+function SignIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const auth = useContext(UserContext);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
       const token = await loginUser(username, password);
-      setToken(token.access_token);
+      auth.setToken(token.access_token);
+      auth.setAuth(true);
+      auth.setCurrentUser(token.user);
+      navigate("/produits");
     } catch (error) {
       toast.error("Error while logging in"); // Set the error message
     }
