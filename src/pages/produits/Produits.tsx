@@ -11,7 +11,7 @@ function Produits() {
 
   useEffect(() => {
     if (!auth.auth) {
-      navigate("/");
+      navigate("/signin");
     }
     fetch("http://localhost:3001/products", {
       method: "GET",
