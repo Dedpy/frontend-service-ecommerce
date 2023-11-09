@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function Payment() {
+  const navigate = useNavigate();
   return (
     <div className=" h-screen">
       <div className=" p-6  md:mx-auto">
@@ -22,12 +24,12 @@ function Payment() {
           </p>
           <p> Have a great day! </p>
           <div className="py-10 text-center">
-            <a
-              href="#"
+            <button
               className="px-12 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3"
+              onClick={() => navigate("/produits")}
             >
               GO BACK
-            </a>
+            </button>
           </div>
         </div>
       </div>

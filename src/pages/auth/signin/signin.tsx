@@ -31,6 +31,7 @@ function SignIn() {
       auth.setToken(token.access_token);
       auth.setAuth(true);
       auth.setCurrentUser(token.user);
+      toast.success("Welcome back " + token.user.username);
       navigate("/produits");
     } catch (error) {
       toast.error("Error while logging in"); // Set the error message

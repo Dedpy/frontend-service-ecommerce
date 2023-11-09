@@ -18,15 +18,13 @@ function Produit({ produit }: { produit: Product }) {
           </p>
         </div>
         <div className="self-center text-center">
-          <p className="text-gray-800 font-normal text-xl">
-            {produit.price} Prices
-          </p>
+          <p className="text-gray-800 font-normal text-xl">{produit.price} $</p>
         </div>
         <div className="flex flex-row self-center gap-1">
           <button
             className="w-5 h-5 self-center rounded-full border border-gray-300"
             onClick={() => setProductQuantity(productQuantity - 1)}
-            disabled={productQuantity === 1}
+            disabled={productQuantity === 1 || produit.inventory === 0}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -48,7 +46,9 @@ function Produit({ produit }: { produit: Product }) {
           <button
             className="w-5 h-5 self-center rounded-full border border-gray-300"
             onClick={() => setProductQuantity(productQuantity + 1)}
-            disabled={productQuantity === produit.inventory}
+            disabled={
+              productQuantity === produit.inventory || produit.inventory === 0
+            }
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
