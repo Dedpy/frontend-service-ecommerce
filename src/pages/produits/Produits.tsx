@@ -12,7 +12,7 @@ function Produits() {
     if (!auth.auth) {
       navigate("/signin");
     }
-    fetch("http://localhost:3001/products", {
+    fetch(`${process.env.API_URL}/products`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

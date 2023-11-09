@@ -4,7 +4,7 @@ import { Link, useNavigate, useNavigation } from "react-router-dom";
 import UserContext from "../../../context/userContext";
 
 async function loginUser(username: string, password: string) {
-  return fetch("http://localhost:3001/auth/sign-in", {
+  return fetch(`${process.env.API_URL}/auth/sign-in`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

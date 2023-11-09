@@ -11,7 +11,7 @@ function PanierDetails() {
     0
   );
   const handlePayment = () => {
-    fetch("http://localhost:3001/commandes", {
+    fetch(`${process.env.API_URL}/commandes`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -32,7 +32,7 @@ function PanierDetails() {
       .then((data) => {
         auth.setCommandeDetails([]);
         auth.commandeDetails.forEach((item) => {
-          fetch(`http://localhost:3001/products/${item.product.id}`, {
+          fetch(`${process.env.API_URL}/products/${item.product.id}`, {
             method: "PATCH",
             headers: {
               "Content-Type": "application/json",

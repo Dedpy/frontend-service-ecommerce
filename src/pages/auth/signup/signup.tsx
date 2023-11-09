@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { Link, redirect, useNavigate } from "react-router-dom";
 async function createUser(username: string, password: string) {
-  return fetch("http://localhost:3001/auth/sign-up", {
+  return fetch(`${process.env.API_URL}/auth/sign-up`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
