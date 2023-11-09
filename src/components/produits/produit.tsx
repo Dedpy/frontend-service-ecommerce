@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Product } from "../../types/produits";
+import UserContext from "../../context/userContext";
 
 function Produit({ produit }: { produit: Product }) {
+  const [productQuantity, setProductQuantity] = useState(1);
+  const auth = useContext(UserContext);
   return (
     <div className="flex flex-col p-4 text-lg font-semibold shadow-md border rounded-sm">
       <div className="flex flex-col md:flex-row gap-3 justify-between">
         <div className="flex flex-col  items-start gap-2">
           <p className="text-lg text-gray-800 font-semibold">{produit.name}</p>
           <p className="text-xs text-gray-600 font-semibold">
-            Inventory: <span className="font-normal">{produit.inventory}</span>
+            Inventory:{" "}
+            <span className="font-normal">
+              {produit.inventory === 0 ? "Out of stock" : produit.inventory}
+            </span>
           </p>
         </div>
         <div className="self-center text-center">
@@ -17,7 +23,11 @@ function Produit({ produit }: { produit: Product }) {
           </p>
         </div>
         <div className="flex flex-row self-center gap-1">
-          <button className="w-5 h-5 self-center rounded-full border border-gray-300">
+          <button
+            className="w-5 h-5 self-center rounded-full border border-gray-300"
+            onClick={() => setProductQuantity(productQuantity - 1)}
+            disabled={productQuantity === 1}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -32,10 +42,14 @@ function Produit({ produit }: { produit: Product }) {
           </button>
           <input
             type="text"
-            value="1"
+            value={productQuantity}
             className="w-8 h-8 text-center text-gray-900 text-sm outline-none border border-gray-300 rounded-sm"
           />
-          <button className="w-5 h-5 self-center rounded-full border border-gray-300">
+          <button
+            className="w-5 h-5 self-center rounded-full border border-gray-300"
+            onClick={() => setProductQuantity(productQuantity + 1)}
+            disabled={productQuantity === produit.inventory}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -50,24 +64,27 @@ function Produit({ produit }: { produit: Product }) {
           </button>
         </div>
         <div className="self-center">
-          <button className="">
+          <button
+            disabled={auth.commandeDetails.some(
+              (item) => item.product.id === produit.id
+            )}
+            onClick={() => {
+              auth.setCommandeDetails([
+                ...auth.commandeDetails,
+                { product: produit, quantite: productQuantity },
+              ]);
+            }}
+          >
             <svg
-              className=""
-              height="24px"
-              width="24px"
-              id="Layer_1"
-              version="1.1"
-              viewBox="0 0 512 512"
-              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              height="1em"
+              width="1em"
             >
-              <g>
-                <path d="M400,113.3h-80v-20c0-16.2-13.1-29.3-29.3-29.3h-69.5C205.1,64,192,77.1,192,93.3v20h-80V128h21.1l23.6,290.7   c0,16.2,13.1,29.3,29.3,29.3h141c16.2,0,29.3-13.1,29.3-29.3L379.6,128H400V113.3z M206.6,93.3c0-8.1,6.6-14.7,14.6-14.7h69.5   c8.1,0,14.6,6.6,14.6,14.7v20h-98.7V93.3z M341.6,417.9l0,0.4v0.4c0,8.1-6.6,14.7-14.6,14.7H186c-8.1,0-14.6-6.6-14.6-14.7v-0.4   l0-0.4L147.7,128h217.2L341.6,417.9z" />
-                <g>
-                  <rect height="241" width="14" x="249" y="160" />
-                  <polygon points="320,160 305.4,160 294.7,401 309.3,401" />
-                  <polygon points="206.5,160 192,160 202.7,401 217.3,401" />
-                </g>
-              </g>
+              <path d="M12 19.5 A1.5 1.5 0 0 1 10.5 21 A1.5 1.5 0 0 1 9 19.5 A1.5 1.5 0 0 1 12 19.5 z" />
+              <path d="M19 19.5 A1.5 1.5 0 0 1 17.5 21 A1.5 1.5 0 0 1 16 19.5 A1.5 1.5 0 0 1 19 19.5 z" />
+              <path d="M13 13h2v-2.99h2.99v-2H15V5.03h-2v2.98h-2.99v2H13V13z" />
+              <path d="M10 17h8a1 1 0 00.93-.64L21.76 9h-2.14l-2.31 6h-6.64L6.18 4.23A2 2 0 004.33 3H2v2h2.33l4.75 11.38A1 1 0 0010 17z" />
             </svg>
           </button>
         </div>

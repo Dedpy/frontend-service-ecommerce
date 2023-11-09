@@ -1,5 +1,6 @@
 import React, { useState, createContext, ReactNode } from "react";
 import { User } from "../types/user";
+import { CommandeDetail } from "../types/commandeDetail";
 
 export const isAuthenticated = () => {
   const user = localStorage.getItem("user");
@@ -19,6 +20,8 @@ interface UserContextType {
   setToken: React.Dispatch<React.SetStateAction<string>>;
   currentUser: User;
   setCurrentUser: React.Dispatch<React.SetStateAction<User>>;
+  commandeDetails: CommandeDetail[];
+  setCommandeDetails: React.Dispatch<React.SetStateAction<CommandeDetail[]>>;
 }
 const UserContext = createContext<UserContextType>({} as UserContextType);
 
@@ -29,11 +32,19 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     id: 0,
     username: "",
   });
-  console.log("usercontext", currentUser);
-
+  const [commandeDetails, setCommandeDetails] = useState<CommandeDetail[]>([]);
   return (
     <UserContext.Provider
-      value={{ token, setToken, auth, setAuth, currentUser, setCurrentUser }}
+      value={{
+        token,
+        setToken,
+        auth,
+        setAuth,
+        currentUser,
+        setCurrentUser,
+        commandeDetails,
+        setCommandeDetails,
+      }}
     >
       {children}
     </UserContext.Provider>
