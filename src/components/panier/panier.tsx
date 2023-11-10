@@ -11,7 +11,7 @@ function PanierDetails() {
     0
   );
   const handlePayment = () => {
-    fetch(`${process.env.API_URL}/commandes`, {
+    fetch(`${process.env.REACT_APP_API_URL}/commandes`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -32,17 +32,20 @@ function PanierDetails() {
       .then((data) => {
         auth.setCommandeDetails([]);
         auth.commandeDetails.forEach((item) => {
-          fetch(`${process.env.API_URL}/products/${item.product.id}`, {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${auth.token}`,
-            },
-            body: JSON.stringify({
-              ...item.product,
-              inventory: item.product.inventory - item.quantite,
-            }),
-          })
+          fetch(
+            `${process.env.REACT_APP_API_URL}/products/${item.product.id}`,
+            {
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${auth.token}`,
+              },
+              body: JSON.stringify({
+                ...item.product,
+                inventory: item.product.inventory - item.quantite,
+              }),
+            }
+          )
             .then((response) => {
               if (!response.ok) {
                 throw new Error("Failed to update product inventory");
